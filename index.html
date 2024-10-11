@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Calculadora de Productos Gano Excel</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #e9eff5;
+            margin: 0;
+        }
+        .container {
+            background-color: #ffffff;
+            border-radius: 15px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: 90vw;
+            max-width: 650px;
+            overflow-y: auto;
+            max-height: 90vh;
+        }
+        h1 {
+            font-size: 22px;
+            text-align: center;
+            margin-bottom: 20px;
+            color: #2c3e50;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        th, td {
+            padding: 10px;
+            border-bottom: 1px solid #dfe6e9;
+            text-align: left;
+        }
+        th {
+            font-weight: 600;
+            color: #34495e;
+            font-size: 15px;
+            background-color: #f7f9fb;
+        }
+        td {
+            font-size: 14px;
+            color: #2c3e50;
+        }
+        .input-qty {
+            padding: 5px;
+            border-radius: 5px;
+            border: 1px solid #ced6e0;
+            background-color: #ffffff;
+            color: #2c3e50;
+            width: 100%;
+            max-width: 60px;
+        }
+        .subtotal, .total, .pv-total {
+            text-align: right;
+            font-size: 14px;
+        }
+        .total {
+            font-size: 18px;
+            font-weight: bold;
+            color: #2980b9;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Calculadora de Productos Gano Excel</h1>
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>Productos</th>
+                    <th>PV (unitario)</th>
+                    <th>Venta al Por Menor (Precio Sugerido)</th>
+                    <th>Cantidad</th>
+                    <th>Subtotal</th>
+                    <th>PV Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>GANO SOAP</td>
+                    <td>10.4</td>
+                    <td>$84,000.00</td>
+                    <td><input type="number" class="input-qty" min="0" value="0" onchange="calculateTotal()" data-pv="10.4"></td>
+                    <td class="subtotal" data-price="84000">$0.00</td>
+                    <td class="pv-total">0.0</td>
+                </tr>
+                <tr>
+                    <td>GANO FRESH TOOTHPASTE</td>
+                    <td>11.0</td>
+                    <td>$80,000.00</td>
+                    <td><input type="number" class="input-qty" min="0" value="0" onchange="calculateTotal()" data-pv="11.0"></td>
+                    <td class="subtotal" data-price="80000">$0.00</td>
+                    <td class="pv-total">0.0</td>
+                </tr>
+                <tr>
+                    <td>GANO TRANSPARENT SOAP</td>
+                    <td>12.0</td>
+                    <td>$88,000.00</td>
+                    <td><input type="number" class="input-qty" min="0" value="0" onchange="calculateTotal()" data-pv="12.0"></td>
+                    <td class="subtotal" data-price="88000">$0.00</td>
+                    <td class="pv-total">0.0</td>
+                </tr>
+                <tr>
+                    <td>PIEL8BRILLO SHAMPOO</td>
+                    <td>11.0</td>
+                    <td>$84,000.00</td>
+                    <td><input type="number" class="input-qty" min="0" value="0" onchange="calculateTotal()" data-pv="11.0"></td>
+                    <td class="subtotal" data-price="84000">$0.00</td>
+                    <td class="pv-total">0.0</td>
+                </tr>
+                <tr>
+                    <td>PIEL8BRILLO ACONDICIONADOR</td>
+                    <td>11.0</td>
+                    <td>$84,000.00</td>
+                    <td><input type="number" class="input-qty" min="0" value="0" onchange="calculateTotal()" data-pv="11.0"></td>
+                    <td class="subtotal" data-price="84000">$0.00</td>
+                    <td class="pv-total">0.0</td>
+                </tr>
+                <tr>
+                    <td>PIEL8BRILLO EXFOLIANTE CORPORAL</td>
+                    <td>11.0</td>
+                    <td>$84,000.00</td>
+                    <td><input type="number" class="input-qty" min="0" value="0" onchange="calculateTotal()" data-pv="11.0"></td>
+                    <td class="subtotal" data-price="84000">$0.00</td>
+                    <td class="pv-total">0.0</td>
+                </tr>
+                <tr>
+                    <td>GANOCAFÉ 3 EN 1</td>
+                    <td>15.0</td>
+                    <td>$116,000.00</td>
+                    <td><input type="number" class="input-qty" min="0" value="0" onchange="calculateTotal()" data-pv="15.0"></td>
+                    <td class="subtotal" data-price="116000">$0.00</td>
+                    <td class="pv-total">0.0</td>
+                </tr>
+                <tr>
+                    <td>GANO SCHOKOLADE</td>
+                    <td>17.0</td>
+                    <td>$124,000.00</td>
+                    <td><input type="number" class="input-qty" min="0" value="0" onchange="calculateTotal()" data-pv="17.0"></td>
+                    <td class="subtotal" data-price="124000">$0.00</td>
+                    <td class="pv-total">0.0</td>
+                </tr>
+                <tr>
+                    <td>GANORICO MOCHA RICO</td>
+                    <td>17.0</td>
+                    <td>$124,000.00</td>
+                    <td><input type="number" class="input-qty" min="0" value="0" onchange="calculateTotal()" data-pv="17.0"></td>
+                    <td class="subtotal" data-price="124000">$0.00</td>
+                    <td class="pv-total">0.0</td>
+                </tr>
+                <tr>
+                    <td>OLEAF GANO ROOIBOS DRINK</td>
+                    <td>17.0</td>
+                    <td>$124,000.00</td>
+                    <td><input type="number" class="input-qty" min="0" value="0" onchange="calculateTotal()" data-pv="17.0"></td>
+                    <td class="subtotal" data-price="124000">$0.00</td>
+                    <td class="pv-total">0.0</td>
+                </tr>
+                <tr>
+                    <td>GANOCAFÉ CLASSIC</td>
+                    <td>15.0</td>
+                    <td>$116,000.00</td>
+                    <td><input type="number" class="input-qty" min="0" value="0" onchange="calculateTotal()" data-pv="15.0"></td>
+                    <td class="subtotal" data-price="116000">$0.00</td>
+                    <td class="pv-total">0.0</td>
+                </tr>
+                <tr>
+                    <td>GANO C'REAL SPIRULINA</td>
+                    <td>17.0</td>
+                    <td>$124,000.00</td>
+                    <td><input type="number" class="input-qty" min="0" value="0" onchange="calculateTotal()" data-pv="17.0"></td>
+                    <td class="subtotal" data-price="124000">$0.00</td>
+                    <td class="pv-total">0.0</td>
+                </tr>
+                <tr>
+                    <td>GANORICO LATTE RICO</td>
+                    <td>17.0</td>
+                    <td>$124,000.00</td>
+                    <td><input type="number" class="input-qty" min="0" value="0" onchange="calculateTotal()" data-pv="17.0"></td>
+                    <td class="subtotal" data-price="124000">$0.00</td>
+                    <td class="pv-total">0.0</td>
+                </tr>
+                <tr>
+                    <td>GANORICO SHOKO RICO</td>
+                    <td>17.0</td>
+                    <td>$124,000.00</td>
+                    <td><input type="number" class="input-qty" min="0" value="0" onchange="calculateTotal()" data-pv="17.0"></td>
+                    <td class="subtotal" data-price="124000">$0.00</td>
+                    <td class="pv-total">0.0</td>
+                </tr>
+                <tr>
+                    <td>RESKINE COLLAGEN DRINK</td>
+                    <td>31.0</td>
+                    <td>$240,000.00</td>
+                    <td><input type="number" class="input-qty" min="0" value="0" onchange="calculateTotal()" data-pv="31.0"></td>
+                    <td class="subtotal" data-price="240000">$0.00</td>
+                    <td class="pv-total">0.0</td>
+                </tr>
+                <tr>
+                    <td>GANODERMA CÁPSULAS</td>
+                    <td>41.0</td>
+                    <td>$280,000.00</td>
+                    <td><input type="number" class="input-qty" min="0" value="0" onchange="calculateTotal()" data-pv="41.0"></td>
+                    <td class="subtotal" data-price="280000">$0.00</td>
+                    <td class="pv-total">0.0</td>
+                </tr>
+                <tr>
+                    <td>EXCELLIUM CÁPSULAS</td>
+                    <td>41.0</td>
+                    <td>$280,000.00</td>
+                    <td><input type="number" class="input-qty" min="0" value="0" onchange="calculateTotal()" data-pv="41.0"></td>
+                    <td class="subtotal" data-price="280000">$0.00</td>
+                    <td class="pv-total">0.0</td>
+                </tr>
+                <tr>
+                    <td>CORDYGOLD CÁPSULAS</td>
+                    <td>49.0</td>
+                    <td>$352,000.00</td>
+                    <td><input type="number" class="input-qty" min="0" value="0" onchange="calculateTotal()" data-pv="49.0"></td>
+                    <td class="subtotal" data-price="352000">$0.00</td>
+                    <td class="pv-total">0.0</td>
+                </tr>
+                <tr>
+                    <td>LUVOCO SUAVE</td>
+                    <td>15.6</td>
+                    <td>$124,000.00</td>
+                    <td><input type="number" class="input-qty" min="0" value="0" onchange="calculateTotal()" data-pv="15.6"></td>
+                    <td class="subtotal" data-price="124000">$0.00</td>
+                    <td class="pv-total">0.0</td>
+                </tr>
+                <tr>
+                    <td>LUVOCO MEDIO</td>
+                    <td>15.6</td>
+                    <td>$124,000.00</td>
+                    <td><input type="number" class="input-qty" min="0" value="0" onchange="calculateTotal()" data-pv="15.6"></td>
+                    <td class="subtotal" data-price="124000">$0.00</td>
+                    <td class="pv-total">0.0</td>
+                </tr>
+                <tr>
+                    <td>LUVOCO FUERTE</td>
+                    <td>15.6</td>
+                    <td>$124,000.00</td>
+                    <td><input type="number" class="input-qty" min="0" value="0" onchange="calculateTotal()" data-pv="15.6"></td>
+                    <td class="subtotal" data-price="124000">$0.00</td>
+                    <td class="pv-total">0.0</td>
+                </tr>
+            </tbody>
+        </table>
+        <h3>Total Precio Sugerido: <span id="total">$0.00</span></h3>
+        <h3>Total PV: <span id="totalPV">0.0</span></h3>
+    </div>
+
+    <script>
+        function calculateTotal() {
+            let total = 0;
+            let totalPV = 0;
+            const rows = document.querySelectorAll("tbody tr");
+
+            rows.forEach(row => {
+                const price = parseFloat(row.querySelector(".subtotal").getAttribute("data-price"));
+                const quantity = parseInt(row.querySelector(".input-qty").value) || 0;
+                const pv = parseFloat(row.querySelector(".input-qty").getAttribute("data-pv"));
+                const subtotal = price * quantity;
+                const pvTotal = pv * quantity;
+
+                // Actualizar subtotal de precios
+                row.querySelector(".subtotal").innerText = "$" + subtotal.toLocaleString("es-MX", { style: "currency", currency: "COP" });
+                
+                // Actualizar el PV Total para la cantidad seleccionada
+                row.querySelector(".pv-total").innerText = pvTotal.toFixed(1);
+                
+                // Sumar al total general y al total PV
+                total += subtotal;
+                totalPV += pvTotal;
+            });
+
+            // Mostrar el total general y el total de PV
+            document.getElementById("total").innerText = "$" + total.toLocaleString("es-MX", { style: "currency", currency: "COP" });
+            document.getElementById("totalPV").innerText = totalPV.toFixed(1);
+        }
+    </script>
+</body>
+</html>
